@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalank - Music Artist Portfolio</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        background: radial-gradient(circle at top left, #1a1a1a, #0d0d0d);
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Gradient Glow Background */
+    body::before {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, #ff4d6d, #6a5acd, #00ffff, #ff4d6d);
+        animation: rotateGlow 15s linear infinite;
+        z-index: -2;
+        filter: blur(200px);
+        opacity: 0.3;
+    }
+
+    @keyframes rotateGlow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    header {
+        width: 100%;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        font-weight: 600;
+    }
+
+    nav {
+        display: flex;
+        gap: 15px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s ease;
+        font-size: 0.95em;
+    }
+
+    nav a:hover {
+        color: #ff4d6d;
+    }
+
+    /* Sections */
+    section {
+        max-width: 900px;
+        width: 90%;
+        margin: 40px auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    section:hover {
+        transform: translateY(-3px);
+    }
+
+    /* About Section */
+    .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .about-content img {
+        border-radius: 15px;
+        width: 250px;
+        height: auto;
+        object-fit: cover;
+        flex-shrink: 0;
+        box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+    }
+
+    .about-content p {
+        flex: 1;
+        line-height: 1.6;
+        font-size: 1em;
+    }
+
+    /* Music Section */
+    .music-player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .music-cover {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+        margin-bottom: 15px;
+    }
+
+    audio {
+        width: 100%;
+        margin-top: 5px;
+        background: rgba(255,255,255,0.25);
+        border-radius: 40px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+        padding: 8px 0;
+        outline: none;
+        transition: box-shadow 0.3s;
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        border: 1.5px solid rgba(255,255,255,0.25);
+    }
+    audio:focus {
+        box-shadow: 0 0 0 3px #ff4d6d55;
+    }
+
+    audio::-webkit-media-controls-panel {
+        background: rgba(255,255,255,0.92);
+        border-radius: 40px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+    audio::-webkit-media-controls-timeline {
+        background: #e0e0e0;
+        height: 6px;
+        border-radius: 3px;
+    }
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        color: #333;
+        font-weight: 500;
+    }
+    audio::-webkit-media-controls-play-button {
+        background-color: transparent;
+        border-radius: 50%;
+    }
+    audio::-webkit-media-controls-volume-slider {
+        background: #e0e0e0;
+        border-radius: 3px;
+    }
+
+    .music-player p {
+        text-align: center;
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: #fff;
+        text-shadow: 0 2px 8px #000a;
+    }
+
+    /* Contact */
+    .social-icons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .social-icons a {
+        font-size: 1.5em;
+        color: white;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        transform: scale(1.2);
+        color: #ff4d6d;
+    }
+
+    /* Coming Soon Albums */
+    .music-player.coming-soon .music-cover {
+        max-width: 180px;
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+
+        nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .about-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .about-content img {
+            width: 180px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 1.3em;
+        }
+
+        nav a {
+            font-size: 0.85em;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Kalank</h1>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#music">Music</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="about">
+    <h2>About</h2>
+    <div class="about-content">
+        <img src="https://github.com/Kunal123a/assets/blob/main/530437363_17844539406547775_7419452200901583762_n..jpg?raw=true" alt="KALANK">
+        <p><strong>KALANK – The Voice They Can’t Ignore 🎤🔥</strong><br><br>
+KALANK is a fearless young rapper turning life’s struggles and dreams into pure lyrical fire. Inspired by @vivianakadivine ❤️‍🔥 and @seedhemaut 🐍, he blends sharp wordplay with the raw pulse of the streets.<br><br>
+Not here to follow trends, KALANK is here to set them—building a movement, not just a career.<br><br>
+<em>"This isn’t just rap—it’s my truth." – KALANK</em>
+        </p>
+    </div>
+</section>
+
+<section id="music">
+    <h2>Latest Track</h2>
+    <div class="music-player">
+        <img src="https://github.com/Kunal123a/assets/blob/main/flow%20state.jpg?raw=true" alt="Flow State" class="music-cover">
+        <p>"Flow State" — KALANK</p>
+        <audio controls>
+            <source src="https://github.com/Kunal123a/assets/raw/refs/heads/main/Flow%20state%20(kalank,%20kunal).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="music-player coming-soon" style="margin-top:40px;opacity:0.7;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiN2YKpYC0wvqBnc-x7a3_rQD1Qe0V3BqztdsyVY_uU9RlX60gnvVnsGG_Uc4NE47s6t0&usqp=CAU" alt="Coming Soon Album 1" class="music-cover" onerror="this.style.display='none'">
+        <p style="font-style:italic;">New Album — Coming Soon</p>
+    </div>
+    <div class="music-player coming-soon" style="margin-top:20px;opacity:0.7;">
+        <img src="https://i.pinimg.com/236x/02/0e/66/020e66e86091d950e8238b69551a65df.jpg" alt="Coming Soon Album 2" class="music-cover" onerror="this.style.display='none'">
+        <p style="font-style:italic;">New Album — Coming Soon</p>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p style="text-align:center;">Connect with Kalank on social media</p>
+    <div class="social-icons">
+        <a href="https://www.instagram.com/kalank_the_kavi/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener" title="Instagram">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:32px;height:32px;vertical-align:middle;filter:invert(1);margin-right:8px;">
+        </a>
+        <a href="#" title="Twitter">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter" style="width:32px;height:32px;vertical-align:middle;filter:invert(1);margin-right:8px;">
+        </a>
+        <a href="#" title="YouTube">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style="width:32px;height:32px;vertical-align:middle;filter:invert(1);margin-right:8px;">
+        </a>
+        <a href="#" title="Spotify">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/spotify.svg" alt="Spotify" style="width:32px;height:32px;vertical-align:middle;filter:invert(1);margin-right:8px;">
+        </a>
+    </div>
+</section>
+
+</body>
+  </html>
+  
